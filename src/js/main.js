@@ -17,11 +17,21 @@ function paintSeries() {
   let htmlCode = "";
   const inputValue = inputElement.value.toLowerCase();
   for (const show of shows) {
-    console.log(show.name, show.image);
-    if (show.name.toLowerCase().includes(inputValue)) {
-      htmlCode += `<li class="serie-card">`;
-      htmlCode += `<img class="img" src="${show.image}" class="serie-img-js">`;
-      htmlCode += `<h3 class="serie-name-js">${show.name}</h3>`;
+    console.log(show);
+    const showName = show.name.toLowerCase();
+
+    //Creamos una variable vacía y con la condición le damos valor
+    let showImage = "";
+    if (show.image) {
+      showImage = show.image.medium;
+    } else {
+      showImage = `https://via.placeholder.com/210x295/ffffff/666666/?text=${show.name}`;
+    }
+    if (showName.includes(inputValue)) {
+      htmlCode += `<li class="previewSerie">`;
+      htmlCode += `<h3 class="previewSerie__title js-serieTitle">${show.name}</h3>`;
+      htmlCode += `<img class="previewSerie js-serieImg" src="${showImage}" class="">`;
+
       htmlCode += `</li>`;
     }
   }
