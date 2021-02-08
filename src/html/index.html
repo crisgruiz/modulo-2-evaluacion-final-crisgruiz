@@ -4,17 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Adalab Web Starter Kit</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/316a162693.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/css/main.css" />
-    <link rel="icon" href="./assets/images/favicon.png" />
+    <!-- <link rel="icon" href="./assets/images/favicon.png" /> -->
   </head>
 
   <body>
-    <div class="page">
-      <include src="./partials/header.html" title="Bienvenidos a Adalab"></include>
-      <include src="./partials/main.html"></include>
-      <include src="./partials/footer.html"></include>
-    </div>
+    <header>
+      <include src="./partials/header.html"></include>
+    </header>
+    <main class="main">
+      <section class="searchContainer">
+        <form method="GET" class="form">
+          <input
+            type="text"
+            class="form__input"
+            name="input"
+            placeholder="Ej: Friends"
+            value=""
+          />
+          <input type="button" class="form__searchBtn" value="Buscar" />
+        </form>
+        <div class="series">
+          <ul class="series__list"></ul>
+        </div>
+      </section>
+      <section class="favoritesContainer">
+        <h2 class="favoritesSeries">Mis series favoritas</h2>
+      </section>
+    </main>
     <script src="./assets/js/main.js"></script>
   </body>
 </html>

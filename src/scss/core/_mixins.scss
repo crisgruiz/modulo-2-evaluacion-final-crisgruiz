@@ -1,0 +1,7 @@
+@mixin normal-text() {
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  font-weight: normal;
+  @content;
+}

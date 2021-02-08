@@ -1,8 +1,43 @@
-@import 'core/variables';
-@import 'core/reset';
-@import 'components/code';
-@import 'components/links';
-@import 'layout/page';
-@import 'layout/header';
-@import 'layout/footer';
-@import 'pages/index';
+@import "core/mixins";
+@import "core/variables";
+@import "core/reset";
+@import "layout/header";
+
+.main {
+  margin: 20px 20px;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-rows: 1fr;
+}
+
+.searchContainer {
+  padding: 10px;
+}
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &__input {
+    margin-right: 10px;
+    width: 200px;
+    padding-left: 5px;
+  }
+  &__searchBtn {
+    width: 60px;
+  }
+}
+
+.favoritesContainer {
+  border: $favorites-border solid 2px;
+  padding: 10px;
+}
+.favoritesSeries {
+  @include normal-text() {
+  }
+
+  font-family: $font-titles;
+  font-size: 15px;
+  text-align: center;
+}
