@@ -67,25 +67,18 @@ function handleFavorite(ev) {
   const showClickedId = parseInt(ev.currentTarget.id);
   console.log(showClickedId);
 
-  for (let i = 0; i < shows.length; i++) {
-    if (!favorites.includes(shows[i]) && showClickedId === shows[i].id) {
-      favorites.push(shows[i]);
+  const indexFav = favorites.findIndex((show) => {
+    return show.id === showClickedId;
+  });
+  if (indexFav !== -1) {
+    favorites.splice(indexFav, 1);
+  } else {
+    for (let i = 0; i < shows.length; i++) {
+      if (showClickedId === shows[i].id) {
+        favorites.push(shows[i]);
+      }
     }
   }
-  console.log(favorites);
-  // const indexFav = favorites.findIndex((show) => {
-  //   return show.id === click;
-  // });
-  // console.log(indexFav);
-  // if (indexFav !== -1) {
-  //   favorites.splice(indexFav, 1);
-  // } else {
-  //   for (let i = 0; i < shows.length; i++) {
-  //     if (shows[i].id === click) {
-  //       favorites.push(shows[i]);
-  //     }
-  //   }
-  // }
   paintFavorites();
 }
 
