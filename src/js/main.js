@@ -22,7 +22,6 @@ function paintSeries() {
 
   for (const show of shows) {
     const showName = show.name.toLowerCase();
-
     //Creamos una variable vacía y la igualamos a la función que llama la imagen
     let showImage = GetImagesDefault(show);
 
@@ -35,7 +34,6 @@ function paintSeries() {
   }
   listElement.innerHTML = htmlCode;
   listenSeriesEvent();
-  // paintFavorites();
 }
 
 //Función que nos permite llamar a la imagen
@@ -66,31 +64,38 @@ function listenSeriesEvent() {
 //Función que añade lo seleccionado al array Favorites
 
 function handleFavorite(ev) {
-  const click = parseInt(ev.currentTarget.id);
-  const indexFav = favorites.findIndex(function listenSeriesEvent(show) {
-    return show.id === click;
-  });
-  const isFavorite = indexFav !== -1;
-  if (isFavorite === true) {
-    favorites.splice(indexFav, 1);
-  } else {
-    for (let i = 0; i < shows.length; i++) {
-      if (shows[i].id === click) {
-        favorites.push(shows[i]);
-      }
+  const showClickedId = parseInt(ev.currentTarget.id);
+  console.log(showClickedId);
+
+  for (let i = 0; i < shows.length; i++) {
+    if (!favorites.includes(shows[i]) && showClickedId === shows[i].id) {
+      favorites.push(shows[i]);
     }
   }
+  console.log(favorites);
+  // const indexFav = favorites.findIndex((show) => {
+  //   return show.id === click;
+  // });
+  // console.log(indexFav);
+  // if (indexFav !== -1) {
+  //   favorites.splice(indexFav, 1);
+  // } else {
+  //   for (let i = 0; i < shows.length; i++) {
+  //     if (shows[i].id === click) {
+  //       favorites.push(shows[i]);
+  //     }
+  //   }
+  // }
   paintFavorites();
 }
 
-//Pintar favoritos
+// Pintar favoritos
 
 function paintFavorites() {
   let htmlCode = "";
   htmlCode += `<ul class = "favSerie">`;
   for (const favorite of favorites) {
     let favoriteImage = GetImagesFav(favorite);
-    console.log("me están pintando");
     htmlCode += `<li class="favSerie-list js-favSeries" id="${favorite.id}">`;
     htmlCode += `<h3 class="favSerie-list__title js-favSerieTitle">${favorite.name}</h3>`;
     htmlCode += `<img class="favSerie-list__img js-favSerieImg" src="${favoriteImage}" class="">`;

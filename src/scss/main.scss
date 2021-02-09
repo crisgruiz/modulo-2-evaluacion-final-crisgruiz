@@ -4,10 +4,10 @@
 @import "layout/header";
 
 .main {
-  padding: 20px 0;
+  padding: 20px 5px;
   height: calc(100vh - 75px);
   display: grid;
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 20% 80%;
   grid-template-rows: 1fr;
   background-image: url(../images/fondo.jpg);
   background-position: center;
@@ -16,6 +16,8 @@
 
 .searchContainer {
   padding: 20px 40px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }
 .form {
   display: flex;
@@ -62,8 +64,12 @@
   }
 }
 .favorites {
-  border-left: 2px solid $favorites-border;
+  border-right: 2px solid $favorites-border;
   padding: 0 10px;
+  overflow-y: scroll;
+  direction: rtl;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
   &__title {
     @include normal-text() {
     }
@@ -73,6 +79,8 @@
   }
   &__container {
     padding: 20px;
+    height: auto;
+    direction: ltr;
   }
 }
 .favSerie {
@@ -80,6 +88,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
   .favSerie-list {
     border: black solid 2px;
     padding: 5px;
