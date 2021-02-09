@@ -14,17 +14,17 @@ function handleGetToApi() {
     .then((data) => {
       shows = data.map((data) => data.show);
       paintSeries();
-      setInLocalStorage();
     });
 }
+
 function paintSeries() {
   let htmlCode = "";
   for (const show of shows) {
     //Creamos una variable vacía y la igualamos a la función que llama la imagen
-    let showImage = GetImagesDefault(show);
+    let showImage = getImageShow(show);
     if (isValidSerie(show)) {
       let isFavoriteClass;
-      if (show.favorite) {
+      if (findIdInArrayOfObjets(show.id, favorites)) {
         isFavoriteClass = "fav";
       } else {
         isFavoriteClass = " ";
@@ -44,19 +44,20 @@ function isValidSerie(show) {
   return show.name.toLowerCase().includes(inputValue);
 }
 
-//Función que nos permite llamar a la imagen
-function GetImagesDefault(show) {
-  if (show.image) {
-    return show.image.medium;
-  } else {
-    return `https://via.placeholder.com/210x295/ffffff/666666/?text=${show.name}`;
+//Busca un id dentro del objeto de un array (Para ver si show.id se encuentra en favorites)
+function findIdInArrayOfObjets(id, array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].id === id) {
+      return true;
+    }
   }
 }
-function GetImagesFav(favorite) {
-  if (favorite.image) {
-    return favorite.image.medium;
+//Función que nos permite llamar a la imagen
+function getImageShow(series) {
+  if (series.image === null) {
+    return `https://via.placeholder.com/210x295/ffffff/666666/?text=${series.name}`;
   } else {
-    return `https://via.placeholder.com/210x295/ffffff/666666/?text=${favorite.name}`;
+    return series.image.medium;
   }
 }
 
@@ -81,10 +82,8 @@ function handleFavorite(ev) {
 
   if (indexFav !== -1) {
     favorites.splice(indexFav, 1);
-    shows[indexShow].favorite = false;
   } else {
     favorites.push(shows[indexShow]);
-    shows[indexShow].favorite = true;
   }
   paintFavorites();
   paintSeries();
@@ -97,7 +96,7 @@ function paintFavorites() {
   let htmlCodeFav = "";
   htmlCodeFav += `<ul class = "favSerie">`;
   for (const favorite of favorites) {
-    let favoriteImage = GetImagesFav(favorite);
+    let favoriteImage = getImageShow(favorite);
     htmlCodeFav += `<li class="favSerie-list js-favSeries" id="${favorite.id}">`;
     htmlCodeFav += `<h3 class="favSerie-list__title js-favSerieTitle">${favorite.name}</h3>`;
     htmlCodeFav += `<img class="favSerie-list__img js-favSerieImg" src="${favoriteImage}" class="">`;
@@ -116,9 +115,7 @@ function setInLocalStorage() {
 }
 function getFromLocalStorage() {
   const localStorageFavorites = localStorage.getItem("favorites");
-  if (localStorageFavorites === null) {
-    handleGetToApi();
-  } else {
+  if (localStorageFavorites !== null) {
     const arrayFavorites = JSON.parse(localStorageFavorites);
     favorites = arrayFavorites;
     paintFavorites();
