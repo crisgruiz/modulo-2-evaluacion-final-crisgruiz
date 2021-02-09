@@ -4,7 +4,7 @@
 @import "layout/header";
 
 .main {
-  padding: 20px 20px;
+  padding: 20px 0;
   height: calc(100vh - 75px);
   display: grid;
   grid-template-columns: 80% 20%;
@@ -26,22 +26,28 @@
 
   &__input {
     margin-right: 10px;
+    height: 30px;
     width: 200px;
     padding-left: 5px;
+    font-family: $font-text;
+    font-size: 15px;
   }
   &__searchBtn {
+    height: 30px;
     width: 60px;
+    font-family: $font-text;
+    font-size: 15px;
   }
 }
 .series__list {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
-  // justify-content: space-around;
+  justify-content: center;
 }
 .previewSerie {
   border: black solid 2px;
-  padding: 3px;
+  padding: 5px;
   margin: 0 5px 15px;
   background-color: $series-backgroundColor;
   &__title {
@@ -55,14 +61,40 @@
     width: 110px;
   }
 }
-.favoritesContainer {
-  padding: 20px;
-}
-.favoritesSeries {
-  @include normal-text() {
+.favorites {
+  border-left: 2px solid $favorites-border;
+  padding: 0 10px;
+  &__title {
+    @include normal-text() {
+    }
+    font-family: $font-titles;
+    font-size: 18px;
+    text-align: center;
   }
-
-  font-family: $font-titles;
-  font-size: 15px;
-  text-align: center;
+  &__container {
+    padding: 20px;
+  }
+}
+.favSerie {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .favSerie-list {
+    border: black solid 2px;
+    padding: 5px;
+    margin: 0 5px 15px;
+    text-align: center;
+    &__title {
+      @include normal-text() {
+      }
+      font-family: $font-titles;
+      font-size: 10px;
+      margin-bottom: 5px;
+    }
+    &__img {
+      height: 90px;
+      width: 75px;
+    }
+  }
 }
