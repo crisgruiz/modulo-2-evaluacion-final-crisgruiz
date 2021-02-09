@@ -114,7 +114,6 @@ function setInLocalStorage() {
   const stringFavorites = JSON.stringify(favorites);
   localStorage.setItem("favorites", stringFavorites);
 }
-
 function getFromLocalStorage() {
   const localStorageFavorites = localStorage.getItem("favorites");
   if (localStorageFavorites === null) {
