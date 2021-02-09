@@ -14,19 +14,22 @@ function handleGetToApi() {
     .then((data) => {
       shows = data.map((data) => data.show);
       paintSeries();
+      setInLocalStorage();
     });
 }
 function paintSeries() {
   let htmlCode = "";
-  const inputValue = inputElement.value.toLowerCase();
-
   for (const show of shows) {
-    const showName = show.name.toLowerCase();
     //Creamos una variable vacía y la igualamos a la función que llama la imagen
     let showImage = GetImagesDefault(show);
-
-    if (showName.includes(inputValue)) {
-      htmlCode += `<li class="previewSerie js-series" id="${show.id}">`;
+    if (isValidSerie(show)) {
+      let isFavoriteClass;
+      if (show.favorite) {
+        isFavoriteClass = "fav";
+      } else {
+        isFavoriteClass = " ";
+      }
+      htmlCode += `<li class="previewSerie js-series ${isFavoriteClass}" id="${show.id}">`;
       htmlCode += `<h3 class="previewSerie__title js-serieTitle">${show.name}</h3>`;
       htmlCode += `<img class="previewSerie__img js-serieImg" src="${showImage}" class="">`;
       htmlCode += `</li>`;
@@ -34,6 +37,11 @@ function paintSeries() {
   }
   listElement.innerHTML = htmlCode;
   listenSeriesEvent();
+}
+
+function isValidSerie(show) {
+  const inputValue = inputElement.value.toLowerCase();
+  return show.name.toLowerCase().includes(inputValue);
 }
 
 //Función que nos permite llamar a la imagen
@@ -52,7 +60,7 @@ function GetImagesFav(favorite) {
   }
 }
 
-//Selección de favoritos
+// listen fav series events
 
 function listenSeriesEvent() {
   const serieElements = document.querySelectorAll(".js-series");
@@ -62,40 +70,59 @@ function listenSeriesEvent() {
 }
 
 //Función que añade lo seleccionado al array Favorites
-
 function handleFavorite(ev) {
   const showClickedId = parseInt(ev.currentTarget.id);
-  console.log(showClickedId);
-
   const indexFav = favorites.findIndex((show) => {
     return show.id === showClickedId;
   });
+  const indexShow = shows.findIndex((show) => {
+    return show.id === showClickedId;
+  });
+
   if (indexFav !== -1) {
     favorites.splice(indexFav, 1);
+    shows[indexShow].favorite = false;
   } else {
-    for (let i = 0; i < shows.length; i++) {
-      if (showClickedId === shows[i].id) {
-        favorites.push(shows[i]);
-      }
-    }
+    favorites.push(shows[indexShow]);
+    shows[indexShow].favorite = true;
   }
   paintFavorites();
+  paintSeries();
+  setInLocalStorage();
 }
 
 // Pintar favoritos
 
 function paintFavorites() {
-  let htmlCode = "";
-  htmlCode += `<ul class = "favSerie">`;
+  let htmlCodeFav = "";
+  htmlCodeFav += `<ul class = "favSerie">`;
   for (const favorite of favorites) {
     let favoriteImage = GetImagesFav(favorite);
-    htmlCode += `<li class="favSerie-list js-favSeries" id="${favorite.id}">`;
-    htmlCode += `<h3 class="favSerie-list__title js-favSerieTitle">${favorite.name}</h3>`;
-    htmlCode += `<img class="favSerie-list__img js-favSerieImg" src="${favoriteImage}" class="">`;
-    htmlCode += `</li>`;
+    htmlCodeFav += `<li class="favSerie-list js-favSeries" id="${favorite.id}">`;
+    htmlCodeFav += `<h3 class="favSerie-list__title js-favSerieTitle">${favorite.name}</h3>`;
+    htmlCodeFav += `<img class="favSerie-list__img js-favSerieImg" src="${favoriteImage}" class="">`;
+    htmlCodeFav += `</li>`;
   }
-  htmlCode += `</ul>`;
-  favElement.innerHTML = htmlCode;
+  htmlCodeFav += `</ul>`;
+  favElement.innerHTML = htmlCodeFav;
+}
+btnElement.addEventListener("click", handleGetToApi);
+
+//LocalStorage
+
+function setInLocalStorage() {
+  const stringFavorites = JSON.stringify(favorites);
+  localStorage.setItem("favorites", stringFavorites);
 }
 
-btnElement.addEventListener("click", handleGetToApi);
+function getFromLocalStorage() {
+  const localStorageFavorites = localStorage.getItem("favorites");
+  if (localStorageFavorites === null) {
+    handleGetToApi();
+  } else {
+    const arrayFavorites = JSON.parse(localStorageFavorites);
+    favorites = arrayFavorites;
+    paintFavorites();
+  }
+}
+getFromLocalStorage();

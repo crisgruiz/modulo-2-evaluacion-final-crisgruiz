@@ -63,6 +63,13 @@
     width: 110px;
   }
 }
+// .hidden {
+//   background-color: $series-backgroundColor;
+//   opacity: 0.5;
+// }
+.fav {
+  background-color: $fav-backgroundColor;
+}
 .favorites {
   border-right: 2px solid $favorites-border;
   padding: 0 10px;
@@ -94,6 +101,7 @@
     padding: 5px;
     margin: 0 5px 15px;
     text-align: center;
+    background-color: $fav-backgroundColor;
     &__title {
       @include normal-text() {
       }
