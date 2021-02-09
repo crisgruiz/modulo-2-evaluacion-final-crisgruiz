@@ -1,6 +1,6 @@
 "use strict";
 const inputElement = document.querySelector(".js-input");
-const btnElement = document.querySelector(".js-searchBtn");
+const btnSearch = document.querySelector(".js-searchBtn");
 const listElement = document.querySelector(".js-list");
 const favElement = document.querySelector(".js-favContainer");
 
@@ -16,6 +16,9 @@ function handleGetToApi() {
       paintSeries();
     });
 }
+//Botón buscar
+
+btnSearch.addEventListener("click", handleGetToApi);
 
 function paintSeries() {
   let htmlCode = "";
@@ -85,6 +88,7 @@ function handleFavorite(ev) {
   } else {
     favorites.push(shows[indexShow]);
   }
+
   paintFavorites();
   paintSeries();
   setInLocalStorage();
@@ -105,7 +109,6 @@ function paintFavorites() {
   htmlCodeFav += `</ul>`;
   favElement.innerHTML = htmlCodeFav;
 }
-btnElement.addEventListener("click", handleGetToApi);
 
 //LocalStorage
 
