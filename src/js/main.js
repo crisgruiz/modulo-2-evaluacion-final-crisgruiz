@@ -3,6 +3,7 @@ const inputElement = document.querySelector(".js-input");
 const btnSearch = document.querySelector(".js-searchBtn");
 const listElement = document.querySelector(".js-list");
 const favElement = document.querySelector(".js-favContainer");
+const btnReset = document.querySelector(".js-resetBtn");
 
 let shows = [];
 let favorites = [];
@@ -125,3 +126,15 @@ function getFromLocalStorage() {
   }
 }
 getFromLocalStorage();
+
+//Botón reset - eliminar toda la lista de favoritos
+
+function resetAllFavoriteList() {
+  favorites = [];
+
+  paintSeries();
+  paintFavorites();
+  setInLocalStorage();
+}
+
+btnReset.addEventListener("click", resetAllFavoriteList);
