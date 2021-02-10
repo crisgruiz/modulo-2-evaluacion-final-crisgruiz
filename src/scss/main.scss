@@ -7,16 +7,18 @@
   padding: 20px 5px;
   height: calc(100vh - 75px);
   display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-rows: 1fr;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 15% 85%;
   background-image: url(../images/fondo.jpg);
   background-position: center;
   background-size: cover;
+  @include normal-text() {
+  }
 }
 
 .searchContainer {
-  padding: 20px 40px;
-  grid-column: 2 / 3;
+  padding: 10px 30px;
+  grid-column: 1 / 2;
   grid-row: 1 / 2;
 }
 .form {
@@ -24,7 +26,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+  &__title {
+    font-family: $font-text;
+    font-size: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
 
   &__input {
     margin-right: 10px;
@@ -48,14 +56,19 @@
     cursor: pointer;
   }
 }
-.series__list {
-  list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.series {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  &__list {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
+
 .previewSerie {
-  border: black solid 2px;
+  border: $border-color 2px;
   padding: 5px;
   margin: 0 5px 15px;
   background-color: $series-backgroundColor;
@@ -75,11 +88,10 @@
 }
 .favorites {
   border-right: 2px solid $favorites-border;
-  padding: 0 10px;
   overflow-y: scroll;
   direction: rtl;
   grid-column: 1 / 2;
-  grid-row: 1 / 2;
+  grid-row: 2 / 3;
   &__title {
     @include normal-text() {
     }
@@ -100,7 +112,7 @@
   justify-content: center;
 
   .favSerie-list {
-    border: black solid 2px;
+    border: $border-color 2px;
     padding: 5px;
     margin: 0 5px 15px;
     text-align: center;
