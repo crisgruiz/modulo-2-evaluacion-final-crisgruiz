@@ -66,14 +66,10 @@
     margin-bottom: 5px;
   }
   &__img {
-    height: 150px;
-    width: 110px;
+    height: 170px;
+    width: 130px;
   }
 }
-// .hidden {
-//   background-color: $series-backgroundColor;
-//   opacity: 0.5;
-// }
 .fav {
   background-color: $fav-backgroundColor;
 }
@@ -117,8 +113,15 @@
       margin-bottom: 5px;
     }
     &__img {
-      height: 90px;
-      width: 75px;
+      height: 100px;
+      width: 80px;
+    }
+    &__clean {
+      width: 12px;
+      height: 12px;
+      transform: translate(35px);
+      padding: 1px;
+      border: black solid 1px;
     }
   }
 }

@@ -4,10 +4,18 @@ const btnSearch = document.querySelector(".js-searchBtn");
 const listElement = document.querySelector(".js-list");
 const favElement = document.querySelector(".js-favContainer");
 const btnReset = document.querySelector(".js-resetBtn");
+const btnClean = document.querySelector(".js-favClean");
+
+const searchPrevent = document.querySelector(".js-form");
+function handleForm(ev) {
+  ev.preventDefault();
+}
+searchPrevent.addEventListener("submit", handleForm);
 
 let shows = [];
 let favorites = [];
 
+//Llamada al API
 function handleGetToApi() {
   const inputValue = inputElement.value.toLowerCase();
   fetch(`https://api.tvmaze.com/search/shows?q=${inputValue}`)
@@ -21,6 +29,7 @@ function handleGetToApi() {
 
 btnSearch.addEventListener("click", handleGetToApi);
 
+//Función que muestra las series cuando le damos a buscar
 function paintSeries() {
   let htmlCode = "";
   for (const show of shows) {
@@ -43,6 +52,7 @@ function paintSeries() {
   listenSeriesEvent();
 }
 
+//Función que comprueba que lo introducido existe en los valores dados por el API
 function isValidSerie(show) {
   const inputValue = inputElement.value.toLowerCase();
   return show.name.toLowerCase().includes(inputValue);
@@ -103,6 +113,7 @@ function paintFavorites() {
   for (const favorite of favorites) {
     let favoriteImage = getImageShow(favorite);
     htmlCodeFav += `<li class="favSerie-list js-favSeries" id="${favorite.id}">`;
+    htmlCodeFav += `<img class="favSerie-list__clean js-favClean" src="./assets/images/clean.png" alt="Clean selection"/>`;
     htmlCodeFav += `<h3 class="favSerie-list__title js-favSerieTitle">${favorite.name}</h3>`;
     htmlCodeFav += `<img class="favSerie-list__img js-favSerieImg" src="${favoriteImage}" class="">`;
     htmlCodeFav += `</li>`;
@@ -138,3 +149,9 @@ function resetAllFavoriteList() {
 }
 
 btnReset.addEventListener("click", resetAllFavoriteList);
+
+//Botón reset - eliminar individualmente los favoritos de la lista
+
+function resetEachFavorite() {}
+
+btnClean.addEventListener("click", resetEachFavorite);
