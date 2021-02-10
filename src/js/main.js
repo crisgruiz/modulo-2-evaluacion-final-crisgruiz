@@ -4,7 +4,6 @@ const btnSearch = document.querySelector(".js-searchBtn");
 const listElement = document.querySelector(".js-list");
 const favElement = document.querySelector(".js-favContainer");
 const btnReset = document.querySelector(".js-resetBtn");
-const btnClean = document.querySelector(".js-favClean");
 
 const searchPrevent = document.querySelector(".js-form");
 function handleForm(ev) {
@@ -113,13 +112,13 @@ function paintFavorites() {
   for (const favorite of favorites) {
     let favoriteImage = getImageShow(favorite);
     htmlCodeFav += `<li class="favSerie-list js-favSeries" id="${favorite.id}">`;
-    htmlCodeFav += `<img class="favSerie-list__clean js-favClean" src="./assets/images/clean.png" alt="Clean selection"/>`;
     htmlCodeFav += `<h3 class="favSerie-list__title js-favSerieTitle">${favorite.name}</h3>`;
     htmlCodeFav += `<img class="favSerie-list__img js-favSerieImg" src="${favoriteImage}" class="">`;
     htmlCodeFav += `</li>`;
   }
   htmlCodeFav += `</ul>`;
   favElement.innerHTML = htmlCodeFav;
+  listenFavEvent();
 }
 
 //LocalStorage
@@ -152,6 +151,23 @@ btnReset.addEventListener("click", resetAllFavoriteList);
 
 //Botón reset - eliminar individualmente los favoritos de la lista
 
-function resetEachFavorite() {}
+function listenFavEvent() {
+  const favoriteElements = document.querySelectorAll(".js-favSeries");
+  console.log(favoriteElements);
+  for (const favoriteElement of favoriteElements) {
+    favoriteElement.addEventListener("click", resetEachFavorite);
+  }
+}
 
-btnClean.addEventListener("click", resetEachFavorite);
+function resetEachFavorite(ev) {
+  const favClickedId = parseInt(ev.currentTarget.id);
+  console.log(favClickedId);
+  const indexFav = favorites.findIndex((favorite) => {
+    return favorite.id === favClickedId;
+  });
+  if (indexFav !== -1) {
+    favorites.splice(indexFav, 1);
+  }
+  paintFavorites();
+  paintSeries();
+}
