@@ -149,11 +149,10 @@ function resetAllFavoriteList() {
 
 btnReset.addEventListener("click", resetAllFavoriteList);
 
-//Botón reset - eliminar individualmente los favoritos de la lista
+//Función para eliminar individualmente los favoritos de la lista
 
 function listenFavEvent() {
   const favoriteElements = document.querySelectorAll(".js-favSeries");
-  console.log(favoriteElements);
   for (const favoriteElement of favoriteElements) {
     favoriteElement.addEventListener("click", resetEachFavorite);
   }
@@ -161,7 +160,6 @@ function listenFavEvent() {
 
 function resetEachFavorite(ev) {
   const favClickedId = parseInt(ev.currentTarget.id);
-  console.log(favClickedId);
   const indexFav = favorites.findIndex((favorite) => {
     return favorite.id === favClickedId;
   });
@@ -170,4 +168,5 @@ function resetEachFavorite(ev) {
   }
   paintFavorites();
   paintSeries();
+  setInLocalStorage();
 }
