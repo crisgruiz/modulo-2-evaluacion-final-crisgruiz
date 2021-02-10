@@ -17,7 +17,7 @@ let favorites = [];
 //Llamada al API
 function handleGetToApi() {
   const inputValue = inputElement.value.toLowerCase();
-  fetch(`https://api.tvmaze.com/search/shows?q=${inputValue}`)
+  fetch(`//api.tvmaze.com/search/shows?q=${inputValue}`)
     .then((response) => response.json())
     .then((data) => {
       shows = data.map((data) => data.show);
