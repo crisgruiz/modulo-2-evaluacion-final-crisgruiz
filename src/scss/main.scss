@@ -31,7 +31,7 @@
   &__title {
     font-family: $font-text;
     font-size: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     text-align: center;
   }
 
@@ -42,6 +42,8 @@
     padding-left: 5px;
     font-family: $font-text;
     font-size: 15px;
+    border: 0;
+    border-radius: 10px;
   }
   &__searchBtn {
     height: 30px;
@@ -70,9 +72,10 @@
 
 .previewSerie {
   border: $border-color 2px;
-  padding: 5px;
+  padding: 15px;
   margin: 0 5px 15px;
   background-color: $series-backgroundColor;
+  border-radius: 20px;
   &__title {
     font-family: $font-text;
     font-size: 12px;
@@ -82,6 +85,7 @@
   &__img {
     height: 190px;
     width: 150px;
+    border-radius: 10px;
   }
   &__average {
     font-family: $font-text;
@@ -116,13 +120,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
   .favSerie-list {
     border: $border-color 2px;
-    padding: 5px;
+    padding: 10px;
     margin: 0 5px 15px;
     text-align: center;
     background-color: $fav-backgroundColor;
+    border-radius: 20px;
     &__title {
       @include normal-text() {
       }
@@ -133,6 +137,7 @@
     &__img {
       height: 130px;
       width: 100px;
+      border-radius: 10px;
     }
   }
 }
@@ -142,9 +147,9 @@
   text-align: center;
 
   &__Btn {
-    width: 150px;
+    width: 180px;
     font-family: $font-text;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
     border-radius: 10px;
     background-color: $Btn-color;
