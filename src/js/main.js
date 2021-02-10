@@ -41,9 +41,16 @@ function paintSeries() {
       } else {
         isFavoriteClass = " ";
       }
+      let ratingAverage;
+      if (show.rating.average !== null) {
+        ratingAverage = `Puntuación: ${show.rating.average}`;
+      } else {
+        ratingAverage = "No tiene puntuación";
+      }
       htmlCode += `<li class="previewSerie js-series ${isFavoriteClass}" id="${show.id}">`;
       htmlCode += `<h3 class="previewSerie__title js-serieTitle">${show.name}</h3>`;
       htmlCode += `<img class="previewSerie__img js-serieImg" src="${showImage}" class="">`;
+      htmlCode += `<p class = "previewSerie__average"> ${ratingAverage}</p>`;
       htmlCode += `</li>`;
     }
   }
